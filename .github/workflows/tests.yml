@@ -55,8 +55,14 @@ jobs:
       - name: Download all Allure results
         uses: actions/download-artifact@v4
         with:
-          path: allure-results/
+          path: downloaded/
           merge-multiple: true
+
+      - name: Flatten results into allure-results
+        run: |
+          mkdir -p allure-results
+          find downloaded/ -type f -exec cp {} allure-results/ \;
+          ls allure-results/
 
       - name: Set up Java
         uses: actions/setup-java@v4
