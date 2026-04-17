@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/pip list *)",
+      "Bash(.venv/Scripts/python -m pytest tests/test_login.py::TestLoginFlow::test_successful_login --collect-only)",
+      "Bash(.venv/Scripts/pip install *)"
+    ]
+  }
+}
