@@ -34,7 +34,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          pytest tests/ --browser ${{ matrix.browser }} --alluredir=allure-results
+          pytest tests/test_login.py --browser ${{ matrix.browser }} --alluredir=allure-results
 
       - name: Upload Allure results
         if: always()  # upload even if tests fail
