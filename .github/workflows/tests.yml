@@ -58,10 +58,21 @@ jobs:
           path: allure-results/
           merge-multiple: true
 
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@v1
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
-          allure_results: allure-results
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Allure CLI
+        run: |
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.27.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+
+      - name: Generate Allure report
+        run: allure generate allure-results --clean -o allure-report
 
       - name: Publish report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
