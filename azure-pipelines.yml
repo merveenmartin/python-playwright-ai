@@ -61,7 +61,7 @@ stages:
     jobs:
       - job: report
         pool:
-          vmImage: ubuntu-latest
+          name: LinuxPool-PW
         steps:
           - checkout: self
 
