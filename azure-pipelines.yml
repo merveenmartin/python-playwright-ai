@@ -38,7 +38,7 @@ stages:
 
           - script: |
               source .venv/bin/activate
-              pytest tests/test_login.py --browser $(browser) --alluredir=allure-results
+              pytest tests/test_login.py --browser $(browser) --alluredir=allure-results --browser-channel=chromium
             env:
               ANTHROPIC_API_KEY: $(ANTHROPIC_API_KEY)
             displayName: Run tests
