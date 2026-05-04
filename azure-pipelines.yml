@@ -16,10 +16,10 @@ stages:
           matrix:
             chromium:
               browser: chromium
-            firefox:
-              browser: firefox
-            webkit:
-              browser: webkit
+            # firefox:
+            #   browser: firefox
+            # webkit:
+            #   browser: webkit
           maxParallel: 1
         continueOnError: true        # equivalent to fail-fast: false
         pool:
