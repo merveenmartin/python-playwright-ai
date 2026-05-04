@@ -27,17 +27,16 @@ stages:
         steps:
           - checkout: self
 
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: '3.13'
-            displayName: Set up Python
-
           - script: |
+              python3 -m venv .venv
+              source .venv/bin/activate
+              python -m pip install --upgrade pip
               pip install -r requirements.txt
               playwright install --with-deps $(browser)
             displayName: Install dependencies
 
           - script: |
+              source .venv/bin/activate
               pytest tests/test_login.py --browser $(browser) --alluredir=allure-results
             env:
               ANTHROPIC_API_KEY: $(ANTHROPIC_API_KEY)
