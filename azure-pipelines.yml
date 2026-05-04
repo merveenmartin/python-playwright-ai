@@ -32,7 +32,8 @@ stages:
               source .venv/bin/activate
               python -m pip install --upgrade pip
               pip install -r requirements.txt
-              playwright install --with-deps $(browser)
+              sudo DEBIAN_FRONTEND=noninteractive python -m playwright install-deps $(browser)
+              python -m playwright install $(browser)
             displayName: Install dependencies
 
           - script: |
