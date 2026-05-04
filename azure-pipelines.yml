@@ -23,7 +23,7 @@ stages:
           maxParallel: 1
         continueOnError: true        # equivalent to fail-fast: false
         pool:
-          vmImage: ubuntu-latest
+          name: LinuxPool-PW
         steps:
           - checkout: self
 
