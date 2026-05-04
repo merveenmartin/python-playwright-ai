@@ -19,8 +19,8 @@ def generate_test_cases(feature_description: str) -> dict[str, object]:
         messages=[{
             "role": "user",
             "content": (
-                "Generate test cases for this feature covering happy path, "
-                "error handling, edge cases, and performance considerations:\n\n"
+                "Generate maximum 6 test cases for this feature covering happy path, "
+                "error handling, and edge cases:\n\n"
                 f"Feature: {feature_description}"
             ),
         }],

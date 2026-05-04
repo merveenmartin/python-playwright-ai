@@ -1,7 +1,7 @@
 from ai.test_generator import generate_test_cases
 
 features = [
-    "Verify email textbox is displayed"
+    "Verify Username textbox is displayed"
 ]
 
 if __name__ == "__main__":

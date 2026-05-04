@@ -5,6 +5,6 @@ load_dotenv()
 
 MODEL = "claude-opus-4-7"
 MAX_TOKENS = 16000
-BASE_URL = "https://the-internet.herokuapp.com"
+BASE_URL = "https://www.saucedemo.com/"
 
 client = anthropic.Anthropic()

@@ -3,14 +3,14 @@ from config import BASE_URL
 
 
 class LoginPage:
-    URL = f"{BASE_URL}/login"
+    URL = BASE_URL
 
     def __init__(self, page: Page):
         self.page = page
-        self.email_input = page.locator("input[name='username']")
-        self.password_input = page.locator("input[name='password']")
-        self.login_button = page.locator("button[type='submit']")
-        self.error_message = page.locator("#flash")
+        self.email_input = page.locator("input[id='user-name']")
+        self.password_input = page.locator("input[id='password']")
+        self.login_button = page.locator("input[type='submit']")
+        self.error_message = page.locator("[data-test='error']")
 
     def goto(self):
         self.page.goto(self.URL)

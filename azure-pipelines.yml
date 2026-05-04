@@ -1,0 +1,95 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+stages:
+  - stage: Test
+    jobs:
+      - job: test
+        strategy:
+          matrix:
+            chromium:
+              browser: chromium
+            firefox:
+              browser: firefox
+            webkit:
+              browser: webkit
+          maxParallel: 3
+        continueOnError: true        # equivalent to fail-fast: false
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.13'
+            displayName: Set up Python
+
+          - script: |
+              pip install -r requirements.txt
+              playwright install --with-deps $(browser)
+            displayName: Install dependencies
+
+          - script: |
+              pytest tests/test_login.py --browser $(browser) --alluredir=allure-results
+            env:
+              ANTHROPIC_API_KEY: $(ANTHROPIC_API_KEY)
+            displayName: Run tests
+
+          - task: PublishPipelineArtifact@1
+            condition: always()      # equivalent to if: always()
+            inputs:
+              targetPath: allure-results
+              artifact: allure-results-$(browser)
+            displayName: Upload Allure results
+
+  - stage: Report
+    dependsOn: Test                  # equivalent to needs: test
+    condition: always()
+    jobs:
+      - job: report
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              path: downloaded
+            displayName: Download all Allure results
+
+          - script: |
+              mkdir -p allure-results
+              find downloaded/ -type f -exec cp {} allure-results/ \;
+              ls allure-results/
+            displayName: Flatten results
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '17'
+              jdkArchitectureOption: x64
+              jdkSourceOption: PreInstalled
+            displayName: Set up Java 17
+
+          - script: |
+              curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+              tar -zxvf allure.tgz
+              sudo mv allure-2.27.0 /opt/allure
+              sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+            displayName: Install Allure CLI
+
+          - script: allure generate allure-results --clean -o allure-report
+            displayName: Generate Allure report
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: allure-report
+              artifact: allure-report
+            displayName: Publish Allure report
