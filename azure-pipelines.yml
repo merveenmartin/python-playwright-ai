@@ -20,7 +20,7 @@ stages:
               browser: firefox
             webkit:
               browser: webkit
-          maxParallel: 3
+          maxParallel: 1
         continueOnError: true        # equivalent to fail-fast: false
         pool:
           vmImage: ubuntu-latest
