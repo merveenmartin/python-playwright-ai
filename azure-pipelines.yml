@@ -23,7 +23,7 @@ stages:
           maxParallel: 1
         continueOnError: true        # equivalent to fail-fast: false
         pool:
-          name: LinuxPool-PW
+          name: Linux-ap-pw
         steps:
           - checkout: self
           - script: |
@@ -61,7 +61,7 @@ stages:
     jobs:
       - job: report
         pool:
-          name: LinuxPool-PW
+          name: Linux-ap-pw
         steps:
           - checkout: self
 
