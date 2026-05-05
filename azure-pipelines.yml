@@ -115,6 +115,5 @@ stages:
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: allure-report
-              artifact: allure-report
+              reportDir: allure-report
             displayName: Publish Allure report
