@@ -113,7 +113,7 @@ stages:
           - script: allure generate allure-results --clean -o allure-report
             displayName: Generate Allure report
 
-          - task: PublishPipelineArtifact@3
+          - task: PublishAllureReport@3
             inputs:
               testResultsDir: '$(System.DefaultWorkingDirectory)/allure-report'
               reportName: "Report 1"
