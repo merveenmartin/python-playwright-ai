@@ -115,5 +115,5 @@ stages:
 
           - task: PublishPipelineArtifact@1
             inputs:
-              reportDir: allure-report
+              reportDir: '$(System.DefaultWorkingDirectory)/allure-report'
             displayName: Publish Allure report
