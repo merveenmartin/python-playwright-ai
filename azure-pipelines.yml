@@ -86,10 +86,28 @@ stages:
 
 
           - script: |
-              curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+              set -e
+          
+              echo "Installing dependencies..."
+              sudo apt update
+              sudo apt install -y curl unzip
+          
+              echo "Downloading Allure..."
+              curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          
+              echo "Extracting..."
               tar -zxvf allure.tgz
+          
+              echo "Cleaning old install (if exists)..."
+              sudo rm -rf /opt/allure || true
+              sudo rm -f /usr/local/bin/allure || true
+          
+              echo "Installing Allure..."
               sudo mv allure-2.27.0 /opt/allure
               sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
+          
+              echo "Verify install..."
+              allure --version
             displayName: Install Allure CLI
 
           - script: allure generate allure-results --clean -o allure-report
