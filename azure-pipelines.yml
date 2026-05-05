@@ -110,11 +110,11 @@ stages:
               allure --version
             displayName: Install Allure CLI
 
-          - script: allure generate allure-results --clean -o allure-report
-            displayName: Generate Allure report
+          # - script: allure generate allure-results --clean -o allure-report
+          #   displayName: Generate Allure report
 
           - task: PublishAllureReport@2
             inputs:
-              testResultsDir: '$(System.DefaultWorkingDirectory)/allure-report'
+              testResultsDir: '$(System.DefaultWorkingDirectory)/allure-results'
               reportName: "Report 1"
             displayName: Publish Allure report
