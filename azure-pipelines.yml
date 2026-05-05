@@ -27,6 +27,8 @@ stages:
         steps:
           - checkout: self
           - script: |
+              sudo apt update
+              sudo apt install -y python3.12-venv python3-pip
               python3 -m venv .venv
               source .venv/bin/activate
               python -m pip install --upgrade pip
