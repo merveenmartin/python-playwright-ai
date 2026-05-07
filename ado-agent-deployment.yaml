@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ado-playwright-agent
+  namespace: ado-agents
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ado-playwright-agent
+  template:
+    metadata:
+      labels:
+        app: ado-playwright-agent
+    spec:
+      containers:
+        - name: ado-playwright-agent
+          image: merveenacr.azurecr.io/ado-playwright-agent:1.9
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+          env:
+            - name: AZP_URL
+              value: "https://dev.azure.com/LJTEQSolutionsLLC"
+            - name: AZP_POOL
+              value: "Linux-ap-pw-aks"
+            - name: AZP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: azdevops-agent-secret
+                  key: AZP_TOKEN
+            - name: AZP_AGENT_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
