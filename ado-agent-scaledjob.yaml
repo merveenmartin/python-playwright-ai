@@ -9,7 +9,7 @@ spec:
       spec:
         containers:
           - name: ado-playwright-agent
-            image: merveenacr.azurecr.io/ado-playwright-agent:2.0
+            image: merveenacr.azurecr.io/ado-playwright-agent:2.1
             resources:
               requests:
                 cpu: "500m"
@@ -31,9 +31,15 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.name
+              - name: AZP_ONCE
+                value: "true"
+              - name: ROLE
+                value: "worker"
         restartPolicy: Never
   pollingInterval: 10
   maxReplicaCount: 5
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
   triggers:
     - type: azure-pipelines
       metadata:
