@@ -1,0 +1,10 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: keda-ado-trigger-auth
+  namespace: ado-agents
+spec:
+  secretTargetRef:
+    - parameter: personalAccessToken
+      name: keda-ado-secret
+      key: personalAccessToken
