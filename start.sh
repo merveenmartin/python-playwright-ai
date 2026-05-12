@@ -19,4 +19,4 @@ cleanup() {
 
 trap cleanup EXIT
 
-./run.sh
+./run.sh --once

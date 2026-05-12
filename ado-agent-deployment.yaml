@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ado-playwright-agent
-          image: merveenacr.azurecr.io/ado-playwright-agent:1.9
+          image: merveenacr.azurecr.io/ado-playwright-agent:2.0
           resources:
             requests:
               cpu: "500m"
