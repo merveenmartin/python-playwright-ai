@@ -14,13 +14,13 @@ stages:
       - job: test
         strategy:
           matrix:
-            # chromium:
-            #   browser: chromium
+            chromium:
+              browser: chromium
             firefox:
               browser: firefox
-            # webkit:
-            #   browser: webkit
-          maxParallel: 1
+            webkit:
+              browser: webkit
+          maxParallel: 3
         continueOnError: true        # equivalent to fail-fast: false
         pool:
           name: Linux-ap-pw-aks
