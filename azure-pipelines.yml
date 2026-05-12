@@ -24,8 +24,6 @@ stages:
         continueOnError: true        # equivalent to fail-fast: false
         pool:
           name: Linux-ap-pw-aks
-          demands:
-            - ROLE -equals worker
         steps:
           - checkout: self
           - script: |
@@ -66,8 +64,6 @@ stages:
       - job: report
         pool:
           name: Linux-ap-pw-aks
-          demands:
-            - ROLE -equals worker
         steps:
           - checkout: self
 

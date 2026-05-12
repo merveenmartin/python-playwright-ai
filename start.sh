@@ -19,8 +19,4 @@ cleanup() {
 
 trap cleanup EXIT
 
-if [ "${AZP_ONCE}" = "true" ]; then
-  ./run.sh --once
-else
-  ./run.sh
-fi
+./run.sh
